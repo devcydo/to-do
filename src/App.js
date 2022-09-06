@@ -1,23 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+
+import Button from "./components/UI/Button";
+import ControlFilter from "./components/ToDos/ControlFilter";
+import ToDoList from "./components/ToDos/ToDoList";
+import ToDoItemForm from "./components/ToDos/ToDoItemForm";
+
+import "./App.css";
 
 function App() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const showModalHandler = () => {
+    setIsModalOpen(true);
+  };
+
+  const hideModalHandler = () => {
+    setIsModalOpen(false);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {isModalOpen && <ToDoItemForm onClose={hideModalHandler} />}
+      <ControlFilter />
+      <Button
+        label="+ New To Do"
+        type="button"
+        align="left"
+        onClick={showModalHandler}
+      />
+      <main>
+        <ToDoList/>
+      </main>
     </div>
   );
 }

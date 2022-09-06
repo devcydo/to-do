@@ -1,0 +1,19 @@
+.select {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.select label {
+  width: 40px;
+  font-weight: bold;
+  margin-right: 2rem;
+}
+
+.select input {
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font: inherit;
+  padding-left: 0.5rem;
+  width: 90%;
+}
