@@ -12,6 +12,18 @@
   opacity: 1;
 }
 
+.row-yellow{
+  background-color: #edae49;
+}
+
+.row-red{
+  background-color: #d1395b;
+}
+
+.row-green{
+  background-color: #00798c;
+}
+
 .col-1 {
   flex-basis: 10%;
 }

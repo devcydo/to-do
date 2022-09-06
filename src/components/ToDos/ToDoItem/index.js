@@ -6,22 +6,24 @@ import Action from "../../UI/Action";
 import classes from "./style.module.css";
 
 const ToDoItem = (props) => {
+  const { id, done, name, priority, dueDate } = props;
+
   const { handleModal } = useContext(ModalContext);
 
   const editHandler = () => {
-    console.log("Edit item" + props.id);
+    console.log("Edit item" + id);
   };
 
   const deleteHandler = () => {
-    handleModal("Delete Item" + props.id)
+    handleModal("Delete Item" + id);
   };
 
   return (
-    <li key={props.id} className={classes["table-row"]}>
-      <div className={classes["col-1"]}>{props.done}</div>
-      <div className={classes["col-2"]}>{props.name}</div>
-      <div className={classes["col-3"]}>{props.priority}</div>
-      <div className={classes["col-4"]}>{props.dueDate}</div>
+    <li key={props.id} className={`${classes["table-row"]} ${classes['row-']}`}>
+      <div className={classes["col-1"]}>{done}</div>
+      <div className={classes["col-2"]}>{name}</div>
+      <div className={classes["col-3"]}>{priority}</div>
+      <div className={classes["col-4"]}>{dueDate}</div>
       <div className={`${classes["col-5"]} ${classes["action-hide"]}`}>
         <Action label="Edit" onClick={editHandler} variant="yellow" />
         /
