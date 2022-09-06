@@ -1,13 +1,19 @@
+import { useContext } from "react";
+
+import { ModalContext } from "../../../context/Modal";
+
 import Action from "../../UI/Action";
 import classes from "./style.module.css";
 
 const ToDoItem = (props) => {
+  const { handleModal } = useContext(ModalContext);
+
   const editHandler = () => {
     console.log("Edit item" + props.id);
   };
 
   const deleteHandler = () => {
-    console.log("Delete item" + props.id);
+    handleModal("Delete Item" + props.id)
   };
 
   return (

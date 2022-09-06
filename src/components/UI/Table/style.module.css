@@ -24,6 +24,20 @@
   text-align: left;
 }
 
+.col-sortable{
+  display: flex;
+  align-items: center;
+}
+
+.col-clickable:hover{
+  cursor: pointer;
+}
+
+.icon-container{
+  display: flex;
+  margin: 0;
+}
+
 .col-1 {
   flex-basis: 10%;
 }
