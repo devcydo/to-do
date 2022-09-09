@@ -1,8 +1,9 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ModalContext } from "../../../context/Modal";
 
 import Button from "../../UI/Button";
 import CheckBox from "../../UI/CheckBox";
+import NoData from "../../UI/NoData";
 import Table from "../../UI/Table";
 import ToDoItem from "../ToDoItem";
 import ToDoItemForm from "../ToDoItemForm";
@@ -15,63 +16,48 @@ const TABLE_HEADERS = [
   { key: "actions", label: "Actions", sortable: false },
 ];
 
-//1 High
-//2 Medium
-//3 Low
-
-const ROWS = [
-  {
-    id: "T1",
-    name: "Task 1",
-    priority: "1",
-    dueDate: "2022-08-11",
-    done: false,
-  },
-  {
-    id: "T2",
-    name: "Task 2",
-    priority: "3",
-    dueDate: "2022-08-10",
-    done: false,
-  },
-  {
-    id: "T3",
-    name: "Task 3",
-    priority: "2",
-    dueDate: "2022-08-12",
-    done: false,
-  },
-  {
-    id: "T4",
-    name: "Task 4",
-    priority: "2",
-    dueDate: "2022-08-07",
-    done: false,
-  },
-  {
-    id: "T5",
-    name: "Task 5",
-    priority: "1",
-    dueDate: "2022-08-12",
-    done: false,
-  },
-  {
-    id: "T6",
-    name: "Task 6",
-    priority: "3",
-    dueDate: "2022-08-12",
-    done: false,
-  },
-];
-
 const ToDoList = () => {
   const { handleModal } = useContext(ModalContext);
 
-  const [tableData, setTableData] = useState(ROWS);
+  const [tableData, setTableData] = useState([]);
 
+  //Get to dos from API
+  async function Init() {
+    try {
+      let response = await fetch(process.env.REACT_APP_API_URL + "todos", {
+        method: "GET",
+      });
+      let data = await response.json();
+      setTableData(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    Init();
+  }, []);
+
+  //Open modal "new to do"
   const clickHandler = () => {
-    handleModal(<ToDoItemForm />);
+    handleModal(<ToDoItemForm init={Init} />);
   };
+
+  //Conditional rendering for the component
+  let tableDataContent = <NoData message="No records found" />;
+  if (tableData.length > 0) {
+    tableDataContent = tableData.map((column) => (
+      <ToDoItem
+        key={column.id}
+        id={column.id}
+        name={column.name}
+        priority={column.priority}
+        dueDate={column.dueDate}
+        isDone={column.isDone}
+        init={Init}
+      />
+    ));
+  }
 
   return (
     <>
@@ -81,16 +67,8 @@ const ToDoList = () => {
         align="left"
         onClick={clickHandler}
       />
-      <Table headers={TABLE_HEADERS}>
-        {tableData.map((column) => (
-          <ToDoItem
-            id={column.id}
-            name={column.name}
-            priority={column.priority}
-            dueDate={column.dueDate}
-            done={<CheckBox />}
-          />
-        ))}
+      <Table id={0} headers={TABLE_HEADERS}>
+        {tableDataContent}
       </Table>
     </>
   );

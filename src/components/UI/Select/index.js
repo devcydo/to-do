@@ -1,6 +1,14 @@
+import { useState } from "react";
 import classes from "./style.module.css";
 
 const Select = (props) => {
+
+  const [value, setValue] = useState();
+
+  const onChangeHandler = (event) => {
+    setValue(event.target.value);
+  }
+
   const options = props.options.map((option) =>
       <option key={option.id} value={option.value}>
         {option.label}
@@ -10,7 +18,7 @@ const Select = (props) => {
   return (
     <div className={classes.select}>
       <label htmlFor={props.input.id}>{props.label}</label>
-      <select {...props.input} defaultValue="default">
+      <select {...props.input} value={value} onChange={onChangeHandler}>
         {options}
       </select>
     </div>

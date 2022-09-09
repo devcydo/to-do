@@ -1,50 +1,37 @@
 import classes from "./style.module.css";
 
 const Table = (props) => {
-  const headers = props.headers.map(
-    (column, index) =>
-      column.sortable ? (
-        <div
-          className={`
+  const headers = props.headers.map((column, index) =>
+    column.sortable ? (
+      <div
+        key={index}
+        className={`
             ${classes["col-" + (index + 1)]} 
             ${classes["col-sortable"]} 
             ${classes["col-clickable"]}`}
-          key={column.key}
-        >
-          {column.label}
-            <div className={classes["icon-container"]}>
-              <i className="gg-chevron-left"></i>
-              <i className="gg-chevron-right"></i>
-            </div>
+      >
+        {column.label}
+        <div className={classes["icon-container"]}>
+          <i className="gg-chevron-left"></i>
+          <i className="gg-chevron-right"></i>
         </div>
-      ) : (
-        <div
-          className={`${classes["col-" + (index + 1)]} ${
-            classes["col-sortable"]
-          }`}
-        >
-          {column.label}
-        </div>
-      )
-    // <div
-    //   className={`${classes["col-" + (index + 1)]} ${classes["col-sortable"]}`}
-    //   key={column.key}
-    //   onClick={column.sortable ? () => sortingChangeHandler(column.key) : null}
-    // >
-    //   {column.label}
-    //   {column.sortable && (
-    //     <div className={classes["icon-container"]}>
-    //       <i className="gg-chevron-left"></i>
-    //       <i className="gg-chevron-right"></i>
-    //     </div>
-    //   )}
-    // </div>
+      </div>
+    ) : (
+      <div
+        className={`${classes["col-" + (index + 1)]} ${
+          classes["col-sortable"]
+        }`}
+        key={index}
+      >
+        {column.label}
+      </div>
+    )
   );
 
   return (
     <div className={classes["table-container"]}>
       <ul className={classes["table-responsive"]}>
-        <li key="headers" className={classes["table-header"]}>
+        <li className={classes["table-header"]}>
           {headers}
         </li>
         {props.children}

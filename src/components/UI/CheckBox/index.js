@@ -1,21 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 
 import classes from "./style.module.css";
 
-const CheckBox = () => {
-  const [isChecked, setIsChecked] = useState(false);
-
-  const checkHandler = () => {
-    setIsChecked(!isChecked);
-  };
-
+const CheckBox = (props) => {
   return (
     <div>
       <input
         type="checkbox"
         id="checkbox"
-        checked={isChecked}
-        onChange={checkHandler}
+        checked={props.checked}
+        onChange={props.onChange}
       />
     </div>
   );

@@ -1,29 +1,82 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 import { ModalContext } from "../../../context/Modal";
 
 import Action from "../../UI/Action";
+import CheckBox from "../../UI/CheckBox";
+import ToDoItemDelete from "../ToDoItemDelete";
 import classes from "./style.module.css";
 
 const ToDoItem = (props) => {
-  const { id, done, name, priority, dueDate } = props;
+  const { id, isDone, name, priority, dueDate = "-" } = props;
 
   const { handleModal } = useContext(ModalContext);
+  const [done, setDone] = useState(isDone);
+
+  const setDoneHandler = async () => {
+    try {
+      let response = await fetch(
+        process.env.REACT_APP_API_URL + "todos/" + id + "/done",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.status !== 200) {
+        throw new Error("Error");
+      }
+
+      setDone(!done);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const setUndoneHandler = async () => {
+    try {
+      let response = await fetch(
+        process.env.REACT_APP_API_URL + "todos/" + id + "/undone",
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.status !== 200) {
+        throw new Error("Error");
+      }
+      
+      setDone(!done);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const editHandler = () => {
     console.log("Edit item" + id);
   };
 
   const deleteHandler = () => {
-    handleModal("Delete Item" + id);
+    handleModal(<ToDoItemDelete id={id} init={props.init}/>);
   };
+  
+  //Is to do done?
+  let checkBox = <CheckBox onChange={setDoneHandler} checked={done}/>
+  if(done){
+    checkBox = <CheckBox onChange={setUndoneHandler} checked={done} />;
+  }
 
   return (
     <li key={props.id} className={`${classes["table-row"]} ${classes['row-']}`}>
-      <div className={classes["col-1"]}>{done}</div>
+      <div className={classes["col-1"]}>{checkBox}</div>
       <div className={classes["col-2"]}>{name}</div>
       <div className={classes["col-3"]}>{priority}</div>
-      <div className={classes["col-4"]}>{dueDate}</div>
+      <div className={classes["col-4"]}>{dueDate ? dueDate : '-'}</div>
       <div className={`${classes["col-5"]} ${classes["action-hide"]}`}>
         <Action label="Edit" onClick={editHandler} variant="yellow" />
         /
