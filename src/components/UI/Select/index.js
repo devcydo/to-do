@@ -2,8 +2,9 @@ import { useState } from "react";
 import classes from "./style.module.css";
 
 const Select = (props) => {
+  const { optionSelected } = props;
 
-  const [value, setValue] = useState();
+  const [value, setValue] = useState(optionSelected);
 
   const onChangeHandler = (event) => {
     setValue(event.target.value);

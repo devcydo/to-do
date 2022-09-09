@@ -5,6 +5,7 @@ import { ModalContext } from "../../../context/Modal";
 import Action from "../../UI/Action";
 import CheckBox from "../../UI/CheckBox";
 import ToDoItemDelete from "../ToDoItemDelete";
+import ToDoItemEdit from "../ToDoItemEdit";
 import classes from "./style.module.css";
 
 const ToDoItem = (props) => {
@@ -33,7 +34,7 @@ const ToDoItem = (props) => {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   const setUndoneHandler = async () => {
     try {
@@ -50,7 +51,7 @@ const ToDoItem = (props) => {
       if (response.status !== 200) {
         throw new Error("Error");
       }
-      
+
       setDone(!done);
     } catch (error) {
       console.log(error);
@@ -58,25 +59,33 @@ const ToDoItem = (props) => {
   };
 
   const editHandler = () => {
-    console.log("Edit item" + id);
+    handleModal(
+      <ToDoItemEdit
+        id={id}
+        name={name}
+        priority={priority}
+        dueDate={dueDate != null ? dueDate : ""}
+        init={props.init}
+      />
+    );
   };
 
   const deleteHandler = () => {
-    handleModal(<ToDoItemDelete id={id} init={props.init}/>);
+    handleModal(<ToDoItemDelete id={id} init={props.init} />);
   };
-  
+
   //Is to do done?
-  let checkBox = <CheckBox onChange={setDoneHandler} checked={done}/>
-  if(done){
+  let checkBox = <CheckBox onChange={setDoneHandler} checked={done} />;
+  if (done) {
     checkBox = <CheckBox onChange={setUndoneHandler} checked={done} />;
   }
 
   return (
-    <li key={props.id} className={`${classes["table-row"]} ${classes['row-']}`}>
+    <li key={props.id} className={`${classes["table-row"]} ${classes["row-"]}`}>
       <div className={classes["col-1"]}>{checkBox}</div>
       <div className={classes["col-2"]}>{name}</div>
       <div className={classes["col-3"]}>{priority}</div>
-      <div className={classes["col-4"]}>{dueDate ? dueDate : '-'}</div>
+      <div className={classes["col-4"]}>{dueDate ? dueDate : "-"}</div>
       <div className={`${classes["col-5"]} ${classes["action-hide"]}`}>
         <Action label="Edit" onClick={editHandler} variant="yellow" />
         /

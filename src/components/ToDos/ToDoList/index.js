@@ -16,26 +16,15 @@ const TABLE_HEADERS = [
   { key: "actions", label: "Actions", sortable: false },
 ];
 
-const ToDoList = () => {
+const ToDoList = (props) => {
+  const { Init, tableData } = props;
   const { handleModal } = useContext(ModalContext);
 
-  const [tableData, setTableData] = useState([]);
-
   //Get to dos from API
-  async function Init() {
-    try {
-      let response = await fetch(process.env.REACT_APP_API_URL + "todos", {
-        method: "GET",
-      });
-      let data = await response.json();
-      setTableData(data);
-    } catch (error) {
-      console.log(error);
-    }
-  }
+
 
   useEffect(() => {
-    Init();
+    props.Init();
   }, []);
 
   //Open modal "new to do"
