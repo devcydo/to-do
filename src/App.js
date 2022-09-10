@@ -28,7 +28,7 @@ function App() {
       <ModalProvider>
         <ControlFilter Init={Init} />
         <ToDoList Init={Init} tableData={tableData} />
-        <Metrics />
+        <Metrics tableData={tableData}/>
       </ModalProvider>
     </div>
   );

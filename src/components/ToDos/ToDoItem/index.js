@@ -8,6 +8,8 @@ import ToDoItemDelete from "../ToDoItemDelete";
 import ToDoItemEdit from "../ToDoItemEdit";
 import classes from "./style.module.css";
 
+const PRIORITY_OPTIONS= ["High", "Medium", "Low"]
+
 const ToDoItem = (props) => {
   const { id, isDone, name, priority, dueDate = "-" } = props;
 
@@ -31,6 +33,8 @@ const ToDoItem = (props) => {
       }
 
       setDone(!done);
+      props.init();
+
     } catch (error) {
       console.log(error);
     }
@@ -53,6 +57,7 @@ const ToDoItem = (props) => {
       }
 
       setDone(!done);
+      props.init();
     } catch (error) {
       console.log(error);
     }
@@ -84,7 +89,7 @@ const ToDoItem = (props) => {
     <li key={props.id} className={`${classes["table-row"]} ${classes["row-"]}`}>
       <div className={classes["col-1"]}>{checkBox}</div>
       <div className={classes["col-2"]}>{name}</div>
-      <div className={classes["col-3"]}>{priority}</div>
+      <div className={classes["col-3"]}>{PRIORITY_OPTIONS[priority-1]}</div>
       <div className={classes["col-4"]}>{dueDate ? dueDate : "-"}</div>
       <div className={`${classes["col-5"]} ${classes["action-hide"]}`}>
         <Action label="Edit" onClick={editHandler} variant="yellow" />
