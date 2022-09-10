@@ -1,0 +1,35 @@
+.button-container {
+  display: flex;
+}
+
+.button {
+  background-color: #30638e;
+  border-radius: 8px;
+  border-style: none;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  padding: 10px 16px;
+  position: relative;
+  text-align: center;
+  cursor:pointer;
+  text-decoration: none;
+}
+
+.button:hover {
+  background-color: #30648e8f;
+}
+
+
+.button-left{
+  justify-content: flex-start;
+}
+
+.button-right{
+  justify-content: flex-end;
+}
+
+.button-center{
+  justify-content: center;
+}
+
+

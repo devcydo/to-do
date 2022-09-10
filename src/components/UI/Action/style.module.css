@@ -1,0 +1,18 @@
+.action{
+  background-color: transparent;
+  border: none;
+  font-size: 14px;
+}
+
+.action:hover{
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.action-red{
+  color: #d1495b;
+}
+
+.action-yellow{
+  color: #edae49;
+}

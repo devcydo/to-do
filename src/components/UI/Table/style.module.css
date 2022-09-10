@@ -1,0 +1,55 @@
+.table-container{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.table-responsive{
+  padding-left: 0px !important;
+}
+
+.table-responsive li{
+  border-radius: 5px;
+  padding: 25px 30px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.table-header {
+  background-color: #30638e;
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  text-align: left;
+}
+
+.col-sortable{
+  display: flex;
+  align-items: center;
+}
+
+.col-clickable:hover{
+  cursor: pointer;
+}
+
+.icon-container{
+  display: flex;
+  margin: 0;
+}
+
+.col-1 {
+  flex-basis: 10%;
+}
+.col-2 {
+  flex-basis: 40%;
+}
+.col-3 {
+  flex-basis: 25%;
+}
+.col-4 {
+  flex-basis: 15%;
+}
+.col-5 {
+  flex-basis: 10%;
+}
