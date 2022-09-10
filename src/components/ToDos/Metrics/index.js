@@ -30,7 +30,6 @@ const Metrics = (props) => {
   }
 
   //Average of each priority
-  let averageItems = 0;
   let high =
     timeHigh.length > 0
       ? parseInt(timeHigh.reduce((a, b) => a + b) / timeHigh.length)
@@ -45,9 +44,12 @@ const Metrics = (props) => {
       : 0;
 
   //Average (general)
+  let averageItems = 0;
   averageItems += high !== 0 ? 1 : 0;
   averageItems += medium !== 0 ? 1 : 0;
   averageItems += low !== 0 ? 1 : 0;
+
+  averageItems = averageItems !== 0 ? averageItems : 1;
   
   let average = (high + medium + low) / averageItems;
   let timeLabel = "m";
@@ -66,7 +68,7 @@ const Metrics = (props) => {
         <div className={classes["flex-left"]}>
           Average time to finish tasks
           <div className={classes["average-container"]}>
-            {parseInt(average)} {timeLabel}
+            {average} {timeLabel}
           </div>
         </div>
         <div className={classes["flex-right"]}>

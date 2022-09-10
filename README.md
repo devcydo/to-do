@@ -9,6 +9,5 @@
   * For example, be able to sort items where their due date is soon and sort them also by priority to see what tasks are more urgent or less urgent
 * Mark “to do’s” as done (clicking in a checkbox) or to undone a “to do”
   * The undone functionality is just there if there is a mistake :D
-* Since it is possible that the client will have a lot of “to do’s” they need to paginate the list of “to do’s”
 * Ability to know, in average, the time between creation and done for all “to do’s”. This should be shown in general for all done “to do’s” and also grouped by priority.
   * This is important for the client since this is a metric they follow to measure performance.

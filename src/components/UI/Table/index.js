@@ -9,13 +9,37 @@ const Table = (props) => {
 
   const [sortDueDate, setSortDueDate] = useState("");
   const [sortPriority, setSortPriority] = useState("");
+  const [dueIcon, setDueIcon] = useState(
+    <div className={classes["icon-container"]}>
+      <i className="gg-chevron-left"></i>
+      <i className="gg-chevron-right"></i>
+    </div>
+  );
+  const [priorityIcon, setPriorityIcon] = useState(
+    <div className={classes["icon-container"]}>
+      <i className="gg-chevron-left"></i>
+      <i className="gg-chevron-right"></i>
+    </div>
+  );
 
   const handleSortingChange = (accessor) => {
-    if (accessor.target.id === "2"){
-      sortPriority === "asc" ? setSortPriority("desc") : setSortPriority("asc");
-    } 
-    if (accessor.target.id === "3"){
-      sortDueDate === "asc" ? setSortDueDate("desc") : setSortDueDate("asc");
+    if (accessor.target.id === "2") {
+      if (sortPriority === "asc") {
+        setSortPriority("desc");
+        setPriorityIcon(<i className="gg-chevron-up"></i>);
+      } else {
+        setSortPriority("asc");
+        setPriorityIcon(<i className="gg-chevron-down"></i>);
+      }
+    }
+    if (accessor.target.id === "3") {
+      if (sortDueDate === "asc") {
+        setSortDueDate("desc");
+        setDueIcon(<i className="gg-chevron-down"></i>);
+      } else {
+        setSortDueDate("asc");
+        setDueIcon(<i className="gg-chevron-up"></i>);
+      }
     }
   };
 
@@ -39,13 +63,12 @@ const Table = (props) => {
 
     changeDueDateHandler();
     changePriorityHandler();
-
   }, [sortDueDate, sortPriority]);
 
   //Reload table sorted
-  useEffect(()=>{
-    props.init(state)
-  }, [state])
+  useEffect(() => {
+    props.init(state);
+  }, [state]);
 
   const headers = props.headers.map((column, index) =>
     column.sortable ? (
@@ -59,10 +82,7 @@ const Table = (props) => {
         onClick={handleSortingChange}
       >
         {column.label}
-        <div className={classes["icon-container"]}>
-          <i className="gg-chevron-left"></i>
-          <i className="gg-chevron-right"></i>
-        </div>
+        {index === 2 ? priorityIcon : dueIcon}
       </div>
     ) : (
       <div
