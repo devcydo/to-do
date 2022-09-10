@@ -1,7 +1,12 @@
+import { useReducer } from "react";
+
 import Button from "../../UI/Button";
 import Card from "../../UI/Card";
 import Input from "../../UI/Input";
 import Select from "../../UI/Select";
+
+import { reducer } from "../../../utils/reducers";
+import { data } from "../../../utils/reducers/state";
 
 const PRIORITY_OPTIONS = [
   { id: 1, value: "default", label: "All" },
@@ -19,38 +24,44 @@ const STATE_OPTIONS = [
 const ControlFilter = (props) => {
   const { Init } = props;
 
-  const submitHandler = async (event) => {
+  //Update values for filtering data
+  const [state, dispatch] = useReducer(reducer, data);
+  const changeInputHandler = (event) => {
+    dispatch({
+      type: "changeValue",
+      field: "name",
+      value: event.target.value,
+    });
+  };
+
+  const changeSelectPriorityHandler = (event) => {
+    dispatch({
+      type: "changeValue",
+      field: "priority",
+      value: event.target.value,
+    });
+  };
+
+  const changeSelectStateHandler = (event) => {
+    dispatch({
+      type: "changeValue",
+      field: "isDone",
+      value: event.target.value,
+    });
+  };
+
+  //Button submit
+  const submitHandler = (event) => {
     event.preventDefault();
-
-    try {
-
-      //Build params
-      let params = "";
-
-      if (event.target.name.value !== "")
-        params += `name=${event.target.name.value}`;
-      
-      if (event.target.priority.value !== "default") {
-        params += params !== "" ? `&` : ``;
-        params += `priority=${event.target.priority.value}`;
-      }
-
-      if (event.target.isDone.value !== "default") {
-        params += params !== "" ? `&` : ``;
-        params += `isDone=${event.target.isDone.value}`;
-      }
-
-      Init(params);
-    } catch (error) {
-      console.log(error);
-    }
-  }
+    Init(state);
+  };
 
   return (
     <Card>
       <form onSubmit={submitHandler}>
         <Input
           label="Name"
+          onChange={changeInputHandler}
           input={{
             id: "name",
             type: "text",
@@ -60,6 +71,7 @@ const ControlFilter = (props) => {
         />
         <Select
           label="Priority"
+          onChange={changeSelectPriorityHandler}
           input={{
             id: "priority",
             type: "select",
@@ -68,6 +80,7 @@ const ControlFilter = (props) => {
         />
         <Select
           label="State"
+          onChange={changeSelectStateHandler}
           input={{
             id: "isDone",
             type: "select",

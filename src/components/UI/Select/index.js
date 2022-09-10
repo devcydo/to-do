@@ -8,6 +8,8 @@ const Select = (props) => {
 
   const onChangeHandler = (event) => {
     setValue(event.target.value);
+    
+    if (props.onChange) props.onChange(event, props.id);
   }
 
   const options = props.options.map((option) =>

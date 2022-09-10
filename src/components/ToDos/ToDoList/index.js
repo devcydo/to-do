@@ -1,8 +1,7 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { ModalContext } from "../../../context/Modal";
 
 import Button from "../../UI/Button";
-import CheckBox from "../../UI/CheckBox";
 import NoData from "../../UI/NoData";
 import Table from "../../UI/Table";
 import ToDoItem from "../ToDoItem";
@@ -56,7 +55,7 @@ const ToDoList = (props) => {
         align="left"
         onClick={clickHandler}
       />
-      <Table id={0} headers={TABLE_HEADERS}>
+      <Table id={0} headers={TABLE_HEADERS} init={Init}>
         {tableDataContent}
       </Table>
     </>

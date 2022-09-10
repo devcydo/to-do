@@ -30,6 +30,7 @@ const Metrics = (props) => {
   }
 
   //Average of each priority
+  let averageItems = 0;
   let high =
     timeHigh.length > 0
       ? parseInt(timeHigh.reduce((a, b) => a + b) / timeHigh.length)
@@ -44,13 +45,16 @@ const Metrics = (props) => {
       : 0;
 
   //Average (general)
-  let average = (high + medium + low) / 3;
+  averageItems += high !== 0 ? 1 : 0;
+  averageItems += medium !== 0 ? 1 : 0;
+  averageItems += low !== 0 ? 1 : 0;
+  let average = (high + medium + low) / averageItems;
   let timeLabel = "m";
 
   if (average > 1440) {
     average = getDaysFromMinutes(average);
     timeLabel = "d";
-  } else if (props.time > 60) {
+  } else if (average > 60) {
     average = getHoursFromMinutes(average);
     timeLabel = "h";
   }
