@@ -48,6 +48,7 @@ const Metrics = (props) => {
   averageItems += high !== 0 ? 1 : 0;
   averageItems += medium !== 0 ? 1 : 0;
   averageItems += low !== 0 ? 1 : 0;
+  
   let average = (high + medium + low) / averageItems;
   let timeLabel = "m";
 

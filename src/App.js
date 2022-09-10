@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from "react";
+import React, { useState } from "react";
 
 import { ModalProvider } from "./context/Modal";
 
@@ -15,7 +15,6 @@ function App() {
   async function Init(state) {
     let params = "";
     if(state) params= buildParams(state)
-    console.log(params);
 
     try {
       let response = await fetch(

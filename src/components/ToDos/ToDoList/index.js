@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { ModalContext } from "../../../context/Modal";
 
 import Button from "../../UI/Button";
@@ -18,13 +18,6 @@ const TABLE_HEADERS = [
 const ToDoList = (props) => {
   const { Init, tableData } = props;
   const { handleModal } = useContext(ModalContext);
-
-  //Get to dos from API
-
-
-  useEffect(() => {
-    props.Init();
-  }, []);
 
   //Open modal "new to do"
   const clickHandler = () => {
